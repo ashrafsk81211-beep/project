@@ -17,7 +17,6 @@ app.use(cors({
     credentials: true
   }));
   
-  console.log("DATABASE_URL = ", process.env.DATABASE_URL ? "LOADED" : "NOT LOADED");
 
 // Connect DB
 connectDB();

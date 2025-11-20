@@ -4,8 +4,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // db.js or db-connection.js
+const DATABASE_URL="postgresql://neondb_owner:npg_pWQUb2ze9PNL@ep-bold-grass-a4xllfeg-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
 
-const connectionString = process.env.DATABASE_URL;
+
+const connectionString = process.env.DATABASE_URL || DATABASE_URL;
 if (!connectionString) {
   console.error('ERROR: DATABASE_URL is not set!');
   // optional: throw new Error('DATABASE_URL missing');
