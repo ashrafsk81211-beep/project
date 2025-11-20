@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// ✅ FIX 1: CORS MUST COME BEFORE ROUTES
+// ✅ CORS FIRST
 app.use(
   cors({
     origin: ["http://localhost:5173", "http://localhost:5174"],
@@ -20,13 +20,21 @@ app.use(
   })
 );
 
-// ✅ FIX 2: Allow preflight requests
-app.options("*", cors());
+// ✅ FIX: SAFE PREFLIGHT HANDLER FOR EXPRESS v5
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    return res.sendStatus(204);
+  }
+  next();
+});
 
 // Routes
 app.use(linkRouter);
 
-// Connect DB
+// DB
 connectDB();
 createLinksTable();
 
