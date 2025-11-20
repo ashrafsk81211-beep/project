@@ -18,7 +18,7 @@ app.use(cors({
     allowedHeaders: ["Content-Type"]
   }));
   
-
+app.use("*",cors())
 // Connect DB
 connectDB();
 
