@@ -3,13 +3,25 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+// db.js or db-connection.js
+const { Pool } = require('pg');
+
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  console.error('ERROR: DATABASE_URL is not set!');
+  // optional: throw new Error('DATABASE_URL missing');
+}
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-  idleTimeoutMillis: 0,
-  connectionTimeoutMillis: 0,
-  keepAlive: true
+  connectionString,
+  // For many managed Postgres (Render/Heroku/Neon) you need SSL:
+  ssl: {
+    rejectUnauthorized: false
+  },
+  // optionally set idleTimeoutMillis, connectionTimeoutMillis, etc.
 });
+
+
 
 const connectDB = async () => {
   try {
