@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // db.js or db-connection.js
-const { Pool } = require('pg');
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
