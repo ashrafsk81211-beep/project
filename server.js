@@ -13,7 +13,7 @@ app.use(express.json());
 // ✅ CORS FIRST
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: ["http://localhost:5173", "http://localhost:5174","https://frontend-cyan-phi-v32uado3yy.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
